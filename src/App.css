@@ -50,6 +50,7 @@ body {
   height: auto;
   object-fit: cover; /* Ensure the image covers the area without stretching */
   transition: transform 0.2s ease-in-out; 
+  -webkit-animation: wiggle 3s infinite;
   animation: wiggle 3s infinite; 
   z-index: 2; 
 }
@@ -67,10 +68,23 @@ body {
 /* ---------------------- Animations ---------------------- */
 
 .kitty-image.pop {
+  -webkit-animation: pop 0.3s ease-in-out; 
   animation: pop 0.3s ease-in-out; 
 }
 
 @keyframes pop {
+  0% {
+    transform: scale(1); 
+  }
+  50% {
+    transform: scale(0.90); 
+  }
+  100% {
+    transform: scale(1); 
+  }
+}
+
+@-webkit-keyframes pop {
   0% {
     transform: scale(1); 
   }
@@ -91,6 +105,18 @@ body {
   }
   100% {
     transform: rotate(5deg); 
+  }
+}
+
+@-webkit-keyframes wiggle {
+  0% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
   }
 }
 
