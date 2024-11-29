@@ -55,6 +55,10 @@ body {
   z-index: 2; 
 }
 
+.kitty-image:hover {
+  cursor: pointer;
+}
+
 /* ---------------------- Overlay Image Styles ---------------------- */
 .overlay-image {
   pointer-events: none; /* Prevent overlay from interfering with clicks on the kitty image */

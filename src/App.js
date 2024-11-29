@@ -90,7 +90,7 @@ export default function App() {
       </div>
 
       <footer className="footer">
-        <p>Made with love - <a href="https://github.com/rrrenai" target="_blank">@rrrenai</a></p>
+        <p>Made with love! ~ <a href="https://github.com/rrrenai" target="_blank">@rrrenai</a></p>
       </footer>
 
     </div>
