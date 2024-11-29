@@ -4,7 +4,7 @@
 
 Click on the kitty to relieve stress. 
 
-WARNING!!!: Includes cute cat noises
+### **WARNING!!!**: Includes cute cat noises
 
 Built using React.js :)
 
