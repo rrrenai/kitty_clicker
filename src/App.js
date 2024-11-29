@@ -21,17 +21,17 @@ function MyButton({ handleClick, popClass, overlayPopClass, currentImage, curren
 
 export default function App() {
   const catImages = [
-    "/kitties/kitty1.png",
-    "kitties/kitty2.png",
-    "/kitties/kitty3.png"
+    process.env.PUBLIC_URL + "/kitties/kitty1.png",
+    process.env.PUBLIC_URL + "/kitties/kitty2.png",
+    process.env.PUBLIC_URL + "/kitties/kitty3.png"
   ];
-
+  
   const overlayImages = [
-    "/kitties/color-yellow.png",
-    "/kitties/color-green.png",
-    "/kitties/color-pink.png"
+    process.env.PUBLIC_URL + "/kitties/color-yellow.png",
+    process.env.PUBLIC_URL + "/kitties/color-green.png",
+    process.env.PUBLIC_URL + "/kitties/color-pink.png"
   ];
-
+  
   const [clickCounter, setClickCounter] = useState(0);
   const [popClass, setPopClass] = useState(false);
   const [overlayPopClass, setOverlayPopClass] = useState(false); // State for overlay pop
