@@ -21,15 +21,15 @@ function MyButton({ handleClick, popClass, overlayPopClass, currentImage, curren
 
 export default function App() {
   const catImages = [
-    "%PUBLIC_URL%/kitties/kitty1.png",
-    "%PUBLIC_URL%/kitties/kitty2.png",
-    "%PUBLIC_URL%/kitties/kitty3.png"
+    "/kitties/kitty1.png",
+    "kitties/kitty2.png",
+    "/kitties/kitty3.png"
   ];
 
   const overlayImages = [
-    "%PUBLIC_URL%/kitties/color-yellow.png",
-    "%PUBLIC_URL%/kitties/color-green.png",
-    "%PUBLIC_URL%/kitties/color-pink.png"
+    "/kitties/color-yellow.png",
+    "/kitties/color-green.png",
+    "/kitties/color-pink.png"
   ];
 
   const [clickCounter, setClickCounter] = useState(0);
