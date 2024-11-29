@@ -1,38 +1,111 @@
-.App {
+/* ---------------------- Global Styles ---------------------- */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  background-color: antiquewhite;
+  font-family: "Gaegu", system-ui;
+  font-size: 1.5em;
+  font-weight: 400;
+  font-style: bold;}
+
+.center {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.footer {
+  font-size: 1em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=Gaegu');
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* ---------------------- Image Stack Styles ---------------------- */
+.image-stack {
+  position: relative; /* Makes the second image overlayable */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* min-width: 135px;
+  max-width: 30vw; */
+  width: 100%; 
+  height: 100%;
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0 auto; 
+  height: auto;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
 }
 
-.App-link {
-  color: #61dafb;
+.cat-house {
+  height: 250px;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* ---------------------- Kitty Image Styles ---------------------- */
+.kitty-image {
+  position: absolute; /* Position over the kitty image */
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensure the image covers the area without stretching */
+  transition: transform 0.2s ease-in-out; 
+  animation: wiggle 3s infinite; 
+  z-index: 2; 
+}
+
+/* ---------------------- Overlay Image Styles ---------------------- */
+.overlay-image {
+  pointer-events: none; /* Prevent overlay from interfering with clicks on the kitty image */
+  width: 100%; 
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.2s ease-in-out; 
+}
+
+/* ---------------------- Animations ---------------------- */
+
+.kitty-image.pop {
+  animation: pop 0.3s ease-in-out; 
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1); 
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(0.90); 
+  }
+  100% {
+    transform: scale(1); 
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg); 
+  }
+}
+
+.overlay-image.pop {
+  animation: overlayPop 0.3s ease-in-out; /* Apply the 'pop' animation */
+}
+
+@keyframes overlayPop {
+  0% {
+    transform: scale(1); /* Start at normal size */
+  }
+  50% {
+    transform: scale(1.1); /* Pop effect, increase size */
+  }
+  100% {
+    transform: scale(1); /* Return to original size */
   }
 }
