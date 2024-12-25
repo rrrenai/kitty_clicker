@@ -139,3 +139,7 @@ body {
     transform: scale(1); /* Return to original size */
   }
 }
+
+.showShop {
+  display: flex;
+}

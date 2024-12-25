@@ -19,6 +19,21 @@ function MyButton({ handleClick, popClass, overlayPopClass, currentImage, curren
   );
 }
 
+function ShopButton({ handleClickShop, showShopClass }) {
+  return (
+    <>
+      <button className="shop-button" onClick={handleClickShop}>SHOP</button>
+
+      {showShopClass && ( // Conditionally render the div
+        <div className="shop-content">
+          <p>What is this?</p>
+        </div>
+      )}
+
+    </>
+  );
+}
+
 export default function App() {
   const catImages = [
     `./kitties/kitty1.png`,
@@ -39,6 +54,8 @@ export default function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentOverlayIndex, setCurrentOverlayIndex] = useState(0); // Track overlay image index
   const [overlaySound, setOverlaySound] = useState(null);  // Declare overlaySound state
+  const [showShopClass, setShowShopClass] = useState(false);
+
 
   // Load the overlay change sound when component mounts
   useEffect(() => {
@@ -75,8 +92,16 @@ export default function App() {
     setTimeout(() => setPopClass(false), 300); 
   }, [clickCounter, catImages.length, overlayImages.length, overlaySound]);  // Make sure overlaySound is included in the dependencies
 
+
+  const handleClickShop = useCallback(() => {
+    setShowShopClass((prev) => !prev); // Toggles between true and false
+  }, []);
+
   return (
     <div className="center">
+
+      <ShopButton handleClickShop={handleClickShop} showShopClass={showShopClass} />
+
       <h1>Currently at {clickCounter} {clickCounter === 1 ? 'click' : 'clicks'}...</h1>
       <div className="cat-house">
         <MyButton 
@@ -90,7 +115,7 @@ export default function App() {
       </div>
 
       <footer className="footer">
-        <p>Made with love! ~ <a href="https://github.com/rrrenai" target="_blank">@rrrenai</a></p>
+        <p>Made with love! ~ <a href="https://github.com/rrrenai" rel="noreferrer" target="_blank">@rrrenai</a></p>
       </footer>
 
     </div>
