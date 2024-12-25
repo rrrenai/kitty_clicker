@@ -143,3 +143,39 @@ body {
 .showShop {
   display: flex;
 }
+
+.shop-content {
+  background-color: rgb(251, 205, 255);
+  position: fixed;
+  width: 30vw;
+  border-radius: 50px;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+.shop-close-button {
+  float: right;
+  padding: 0 5px;
+  border-radius: 50%;
+}
+.shop-content > h1 {
+  padding: 1rem;
+  margin: 0;
+  font-size: 2rem;
+}
+.shop-content > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 20;
+}
+.shop-content > .paragraph {
+  padding: 0;
+  margin: 0;
+}
+.shop-item-button {
+  font-size: 1rem;
+  padding: 0;
+  width: 50px;
+}

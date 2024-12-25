@@ -19,20 +19,69 @@ function MyButton({ handleClick, popClass, overlayPopClass, currentImage, curren
   );
 }
 
-function ShopButton({ handleClickShop, showShopClass }) {
+function ItemButton({ cost, onClick, isAffordable }) {
   return (
     <>
-      <button className="shop-button" onClick={handleClickShop}>SHOP</button>
-
-      {showShopClass && ( // Conditionally render the div
-        <div className="shop-content">
-          <p>What is this?</p>
-        </div>
-      )}
-
+      <button
+        className={`item-button ${isAffordable ? "" : "disabled"}`}
+        onClick={isAffordable ? onClick : null}
+        disabled={!isAffordable}
+      >
+        {cost} click points
+      </button>
     </>
   );
 }
+
+function ShopButton({ handleOpenShop, handleCloseShop, showShopClass, clickBalance, purchasedUpgrades, handlePurchase }) {
+  const upgrades = [
+    { name: "2x Click Multiplier!", price: 1 },
+    { name: "Include keyboard clicks!", price: 2 },
+    { name: "Christmas update :)", price: 3 },
+  ];
+
+  return (
+    <>
+      <button className="shop-button" onClick={handleOpenShop}>SHOP</button>
+      
+      {showShopClass && ( // Conditionally render the div
+        <div className="shop-content">
+          {showShopClass && (
+            <button className="shop-close-button" onClick={handleCloseShop}>
+              ✖
+            </button>
+          )}
+          <h1>You have {clickBalance} click points!</h1>
+          
+          {upgrades.map((upgrade, index) => (
+            <div key={index}>
+              <p>{upgrade.name} - </p>
+              <ItemButton
+                cost={upgrade.price}
+                onClick={() => handlePurchase(upgrade.price, upgrade.name)}
+                isAffordable={!purchasedUpgrades.includes(upgrade.name) && clickBalance >= upgrade.price}
+              />
+            </div>
+          ))}
+
+          <h2>Purchased Upgrades:</h2>
+          {purchasedUpgrades.length > 0 ? (
+            <ul className="purchased-upgrades">
+              {purchasedUpgrades.map((upgrade, index) => (
+                <li key={index}>{upgrade}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No upgrades purchased yet.</p>
+          )}
+
+        </div>
+      )}
+    </>
+  );
+}
+
+
 
 export default function App() {
   const catImages = [
@@ -55,7 +104,8 @@ export default function App() {
   const [currentOverlayIndex, setCurrentOverlayIndex] = useState(0); // Track overlay image index
   const [overlaySound, setOverlaySound] = useState(null);  // Declare overlaySound state
   const [showShopClass, setShowShopClass] = useState(false);
-
+  const [purchasedUpgrades, setPurchasedUpgrades] = useState([]);
+  const [clickMultiplier, setClickMultiplier] = useState(1); // Default to 1x multiplier
 
   // Load the overlay change sound when component mounts
   useEffect(() => {
@@ -64,7 +114,7 @@ export default function App() {
   }, []);
 
   const handleClick = useCallback(() => {
-    setClickCounter((prev) => prev + 1);
+    setClickCounter((prev) => prev + 1 * clickMultiplier); 
 
     // Change to the next cat image in the array
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % catImages.length);
@@ -87,20 +137,68 @@ export default function App() {
 
     // Set popClass to true to trigger the pop animation for the cat image
     setPopClass(true);
-
-    // Remove popClass after 300ms (duration of the pop animation)
     setTimeout(() => setPopClass(false), 300); 
-  }, [clickCounter, catImages.length, overlayImages.length, overlaySound]);  // Make sure overlaySound is included in the dependencies
+  }, [clickCounter, catImages.length, overlayImages.length, overlaySound, clickMultiplier]);  // Make sure overlaySound is included in the dependencies
 
 
-  const handleClickShop = useCallback(() => {
-    setShowShopClass((prev) => !prev); // Toggles between true and false
+  const handleOpenShop = useCallback(() => {
+    setShowShopClass(true); // Open the shop
   }, []);
+
+  const handleCloseShop = useCallback(() => {
+    setShowShopClass(false); // Close the shop
+  }, []);
+
+  
+
+  const handleKeyboardClick = useCallback((event) => {
+    const clickMultiplier = purchasedUpgrades.includes("2x Click Multiplier!") ? 2 : 1;
+    setClickCounter((prev) => prev + clickMultiplier); 
+
+    setPopClass(true);
+    setTimeout(() => setPopClass(false), 300);
+    
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % catImages.length);
+    setCurrentOverlayIndex((prevIndex) => (prevIndex + 1) % overlayImages.length);
+
+    if (overlaySound) {
+      overlaySound.play();
+    }
+  }, [purchasedUpgrades, overlaySound, catImages.length, overlayImages.length]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyboardClick);
+    return () => {
+      document.removeEventListener('keydown', handleKeyboardClick);
+    };
+  }, [handleKeyboardClick]);
+
+  const handlePurchase = useCallback((cost, itemName) => {
+    if (clickCounter >= cost) {
+      setClickCounter((prev) => prev - cost);
+      setPurchasedUpgrades((prev) => [...prev, itemName]);
+
+      if (itemName === "2x Click Multiplier!") {
+        setClickMultiplier(2); // Apply 2x multiplier
+      } 
+      if (itemName === "Include keyboard clicks!") {
+        document.addEventListener('keydown', handleKeyboardClick);
+      }
+    } else {
+      return;
+    }
+  }, [clickCounter, handleKeyboardClick]); 
 
   return (
     <div className="center">
-
-      <ShopButton handleClickShop={handleClickShop} showShopClass={showShopClass} />
+      <ShopButton
+        handleOpenShop={handleOpenShop}
+        handleCloseShop={handleCloseShop}
+        showShopClass={showShopClass} 
+        clickBalance={clickCounter}
+        handlePurchase={handlePurchase}
+        purchasedUpgrades={purchasedUpgrades}
+      />
 
       <h1>Currently at {clickCounter} {clickCounter === 1 ? 'click' : 'clicks'}...</h1>
       <div className="cat-house">
