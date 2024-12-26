@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import './App.css';
 
-function MyButton({ handleClick, popClass, overlayPopClass, currentImage, currentOverlayImage }) {
+function Kitty({ handleClick, popClass, overlayPopClass, currentImage, currentOverlayImage }) {
   return (
     <div className="image-stack">
       <img 
@@ -152,17 +152,19 @@ export default function App() {
   
 
   const handleKeyboardClick = useCallback((event) => {
-    const clickMultiplier = purchasedUpgrades.includes("2x Click Multiplier!") ? 2 : 1;
-    setClickCounter((prev) => prev + clickMultiplier); 
+    if (purchasedUpgrades.includes("Include keyboard clicks!")) {
+      const clickMultiplier = purchasedUpgrades.includes("2x Click Multiplier!") ? 2 : 1;
+      setClickCounter((prev) => prev + clickMultiplier); 
 
-    setPopClass(true);
-    setTimeout(() => setPopClass(false), 300);
-    
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % catImages.length);
-    setCurrentOverlayIndex((prevIndex) => (prevIndex + 1) % overlayImages.length);
+      setPopClass(true);
+      setTimeout(() => setPopClass(false), 300);
+      
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % catImages.length);
+      setCurrentOverlayIndex((prevIndex) => (prevIndex + 1) % overlayImages.length);
 
-    if (overlaySound) {
-      overlaySound.play();
+      if (overlaySound) {
+        overlaySound.play();
+      }
     }
   }, [purchasedUpgrades, overlaySound, catImages.length, overlayImages.length]);
 
@@ -184,6 +186,10 @@ export default function App() {
       if (itemName === "Include keyboard clicks!") {
         document.addEventListener('keydown', handleKeyboardClick);
       }
+      if (itemName === "Christmas update :)") {
+        var x = new Audio('./kitties/song.mp3');
+        x.play();
+      }
     } else {
       return;
     }
@@ -192,6 +198,7 @@ export default function App() {
   return (
     <div className="center">
       <ShopButton
+        className="shopButton"
         handleOpenShop={handleOpenShop}
         handleCloseShop={handleCloseShop}
         showShopClass={showShopClass} 
@@ -202,13 +209,13 @@ export default function App() {
 
       <h1>Currently at {clickCounter} {clickCounter === 1 ? 'click' : 'clicks'}...</h1>
       <div className="cat-house">
-        <MyButton 
+        <Kitty 
           className="cat-button" 
           handleClick={handleClick} 
           popClass={popClass} 
-          overlayPopClass={overlayPopClass}  // Pass overlayPopClass to MyButton
-          currentImage={catImages[currentImageIndex]}  // Pass the current cat image to MyButton
-          currentOverlayImage={overlayImages[currentOverlayIndex]}  // Pass the current overlay image to MyButton
+          overlayPopClass={overlayPopClass}
+          currentImage={catImages[currentImageIndex]}
+          currentOverlayImage={overlayImages[currentOverlayIndex]}
         />
       </div>
 

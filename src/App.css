@@ -140,14 +140,24 @@ body {
   }
 }
 
+.shopButton {
+  border-radius: 50%;
+  background-color: rgb(253, 230, 255);
+  border-color: rgb(239, 62, 255);
+  border-width: 10px;
+  font-family: "Gaegu", system-ui;
+  font-size: 1rem;
+}
 .showShop {
   display: flex;
 }
-
 .shop-content {
-  background-color: rgb(251, 205, 255);
+  background-color: rgb(253, 230, 255);
   position: fixed;
   width: 30vw;
+  border-color: rgb(239, 62, 255);
+  box-shadow: 10px 10px 25px gray;
+  border-width: 10px;
   border-radius: 50px;
   z-index: 3;
   top: 50%;
@@ -159,6 +169,8 @@ body {
   float: right;
   padding: 0 5px;
   border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(0,0,0);
 }
 .shop-content > h1 {
   padding: 1rem;
@@ -175,7 +187,12 @@ body {
   margin: 0;
 }
 .shop-item-button {
+  display: inline;
   font-size: 1rem;
   padding: 0;
   width: 50px;
+  border-radius: 50%;
+}
+ul {
+  list-style-type: none;
 }
