@@ -189,6 +189,7 @@ export default function App() {
       if (itemName === "Christmas update :)") {
         var x = new Audio('./kitties/song.mp3');
         x.play();
+        x.loop = true;
       }
     } else {
       return;
