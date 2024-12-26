@@ -35,9 +35,9 @@ function ItemButton({ cost, onClick, isAffordable }) {
 
 function ShopButton({ handleOpenShop, handleCloseShop, showShopClass, clickBalance, purchasedUpgrades, handlePurchase }) {
   const upgrades = [
-    { name: "2x Click Multiplier!", price: 1 },
-    { name: "Include keyboard clicks!", price: 2 },
-    { name: "Christmas update :)", price: 3 },
+    { name: "2x Click Multiplier!", price: 150 },
+    { name: "Include keyboard clicks!", price: 2000 },
+    { name: "Christmas update :)", price: 25 },
   ];
 
   return (

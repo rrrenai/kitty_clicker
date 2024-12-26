@@ -2,7 +2,9 @@
 
 # This is Kitty Clicker!!!
 
-Click on the kitty to relieve stress. 
+CLICKCLICKCLICK on the kitty to relieve stress. 
+
+Use your click points to purchase upgrades in the SHOP!
 
 ### **WARNING!!!**: Includes cute cat noises
 
